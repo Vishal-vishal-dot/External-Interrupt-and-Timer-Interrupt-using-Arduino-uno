@@ -1,6 +1,4 @@
-# EXTERNAL INTERRUPT AND TIMER INTERRUPT USING ARDUINO UNO
-
-## EXP 3: EXTERNAL INTERRUPT AND TIMER INTERRUPT USING ARDUINO UNO
+## EXP 5 : EXTERNAL INTERRUPT AND TIMER INTERRUPT USING ARDUINO UNO
 
 ### Aim
 To implement External Interrupt and Timer Interrupt using an Arduino UNO and observe interrupt-driven execution.
@@ -20,7 +18,8 @@ To implement External Interrupt and Timer Interrupt using an Arduino UNO and obs
 # Circuit Diagram
 
 ---
-To upload
+<img width="827" height="412" alt="image" src="https://github.com/user-attachments/assets/124fe722-66eb-4c0d-88bf-156973c9e7cb" />
+
 ---
 
 # Procedure
@@ -69,19 +68,51 @@ To upload
 3. Record the observations.
 
 # Program
+```
 
+volatile bool buttonState = false;
+
+void externalInterrupt() {
+  buttonState = true;
+}
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
+
+  // D2 is the external interrupt pin
+  pinMode(2, INPUT_PULLUP);
+
+  // Trigger when D2 changes from HIGH to LOW
+  attachInterrupt(
+    digitalPinToInterrupt(2),
+    externalInterrupt,
+    FALLING
+  );
+}
+
+void loop() {
+
+  if (digitalRead(2) == LOW) {
+    digitalWrite(LED_BUILTIN, HIGH);
+  } 
+  else {
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+}
+```
 ---
-To upload
----
+# OUTPUT
 
-# Observation
+# LED OFF
 
-| Activity | Expected Output |
-|----------|-----------------|
-| Board Powered ON | System initializes |
-| Push Button Pressed | External ISR executes immediately |
-| Timer Running | Timer ISR executes periodically |
-| LED | Toggles/blinks according to ISR |
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/ddc3390e-87e9-43fc-b6ad-9e6cfe7eaa71" />
+
+
+# LED ON
+
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/24b4bef1-7a2b-4620-a58f-151648055d1d" />
+
 
 # Result
 
